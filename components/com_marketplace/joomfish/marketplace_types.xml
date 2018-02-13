@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<joomfish type="contentelement">
+	<name>Marketplace Types</name>
+	<author>Achim Fischer</author>
+	<version>1.4.2</version>
+	<description>Marketplace Types</description>
+	<reference>
+		<table name="marketplace_types">
+			<field type="referenceid" name="id" translate="0">Id</field>
+			<field type="titletext" name="name" translate="1">Name</field>
+		</table>
+	</reference>
+</joomfish>

@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mosinstall type="component">
+   <name>Marketplace</name>
+   <creationDate>22.11.2008</creationDate>
+   <author>Codingfish Limited</author>
+   <copyright>Copyright 2005-2008 Codingfish Limited. All Rights Reserved.</copyright>
+   <authorEmail></authorEmail>
+   <authorUrl></authorUrl>
+   <version>1.4.6</version>
+   <description>Классификатор объявлений для Joomla!</description>
+
+   <files>
+      <filename>write_ad.php</filename>
+      <filename>delete_ad.php</filename>
+      <filename>footer.php</filename>
+      <filename>joomfish/marketplace_ads.xml</filename>
+      <filename>joomfish/marketplace_categories.xml</filename>
+      <filename>joomfish/marketplace_types.xml</filename>
+      <filename>jscalendar/calendar.js</filename>
+      <filename>jscalendar/calendar-en.js</filename>
+      <filename>jscalendar/calendar-setup.js</filename>
+      <filename>jscalendar/calendar-system.css</filename>
+      <filename>language/dutch.php</filename>
+      <filename>language/english.php</filename>
+      <filename>language/finnish.php</filename>
+      <filename>language/french.php</filename>
+      <filename>language/german.php</filename>
+      <filename>language/germani.php</filename>
+      <filename>language/greek.php</filename>
+      <filename>language/italian.php</filename>
+      <filename>language/romanian.php</filename>
+      <filename>language/russian.php</filename>
+      <filename>language/spanish.php</filename>
+      <filename>language/turkish.php</filename>
+      <filename>list.php</filename>
+      <filename>marketplace.php</filename>
+      <filename>marketplace.css</filename>
+      <filename>mootools/mootools-release-1.11.js</filename>
+      <filename>pagination.php</filename>
+      <filename>recent5.php</filename>
+      <filename>rss.php</filename>
+      <filename>router.php</filename>
+      <filename>search.php</filename>
+      <filename>show_ad.php</filename>
+      <filename>show_category.php</filename>
+      <filename>show_index.php</filename>
+      <filename>show_rules.php</filename>
+      <filename>slimbox/css/slimbox.css</filename>
+      <filename>slimbox/js/slimbox.js</filename>
+      <filename>topmenu.php</filename>
+   </files>
+
+   <images>
+      <filename>images/entries/dummy.gif</filename>
+      <filename>images/categories/default.gif</filename>
+      <filename>images/system/codingfish.png</filename>
+      <filename>images/system/deletead.gif</filename>
+      <filename>images/system/editad.gif</filename>
+      <filename>images/system/error.gif</filename>
+      <filename>images/system/feed.gif</filename>
+      <filename>images/system/home.gif</filename>
+      <filename>images/system/information.gif</filename>
+      <filename>images/system/myads.gif</filename>
+      <filename>images/system/nopic.gif</filename>
+      <filename>images/system/published.gif</filename>
+      <filename>images/system/rules.gif</filename>
+      <filename>images/system/search.gif</filename>
+      <filename>images/system/success.gif</filename>
+      <filename>images/system/unpublished.gif</filename>
+      <filename>images/system/warning.gif</filename>
+      <filename>images/system/writead.gif</filename>
+      <filename>slimbox/css/closelabel.gif</filename>
+      <filename>slimbox/css/loading.gif</filename>
+      <filename>slimbox/css/nextlabel.gif</filename>
+      <filename>slimbox/css/prevlabel.gif</filename>
+   </images>
+
+   <install>
+      <queries>
+
+         <query>
+		DROP TABLE IF EXISTS `#__marketplace_categories`;
+         </query>
+         <query>
+		CREATE TABLE IF NOT EXISTS `#__marketplace_categories` (
+		  		`id`               						INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+		  		`parent`           						INTEGER UNSIGNED DEFAULT '0',
+		  		`name`             						VARCHAR(50) DEFAULT NULL,
+		  		`description`      						VARCHAR(250) DEFAULT NULL,
+		  		`image`            						VARCHAR(250) DEFAULT NULL,
+		  		`image2`           						VARCHAR(250) DEFAULT NULL,
+		  		`has_entries`      						TINYINT(4) DEFAULT '0',
+		  		`sort_order`       						INTEGER DEFAULT '0',
+
+                `use_paid_ads`    						TINYINT(1) DEFAULT '-1',
+
+                `overwrite_paid_ads_price_basic`    	TINYINT(1) DEFAULT '0',
+                `paid_ads_price_basic`    				FLOAT( 9,2) DEFAULT 0,
+
+                `overwrite_paid_ads_price_top`    		TINYINT(1) DEFAULT '0',
+                `paid_ads_price_top`    				FLOAT( 9,2) DEFAULT 0,
+
+                `overwrite_paid_ads_price_featured`    	TINYINT(1) DEFAULT '0',
+                `paid_ads_price_featured`    			FLOAT( 9,2) DEFAULT 0,
+
+                `overwrite_paid_ads_price_commercial`	TINYINT(1) DEFAULT '0',
+                `paid_ads_price_commercial`    			FLOAT( 9,2) DEFAULT 0,
+
+                `ad_default`							TINYINT(1) DEFAULT '-1',
+
+          		`published`        						TINYINT(1) DEFAULT 0,
+		  PRIMARY KEY  (`id`),
+		  KEY `marketplace_categories_parent` (`parent`),
+		  KEY `marketplace_categories_sort_order` (`sort_order`)
+		) TYPE=MyISAM;
+         </query>
+
+         <query>
+			INSERT INTO `#__marketplace_categories`(
+					id, parent, name, description, image, image2, has_entries, sort_order, published
+				)
+				VALUES(
+					1, 0, 'Категория Container1', 'Эта Категория имеет подКатегории', '', '', 0, 1, 0
+				);
+         </query>
+         <query>
+			INSERT INTO `#__marketplace_categories`(
+					id, parent, name, description, image, image2, has_entries, sort_order, published
+				)
+				VALUES(
+					2, 1, 'Категория1', 'Описание для Категории1', 'default.gif', '', 1, 2, 0
+				);
+         </query>
+         <query>
+			INSERT INTO `#__marketplace_categories`(
+					id, parent, name, description, image, image2, has_entries, sort_order, published
+				)
+				VALUES(
+					3, 1, 'Категория2', 'Описание для Категории2', 'default.gif', '', 1, 3, 0
+				);
+         </query>
+
+         <query>
+			INSERT INTO `#__marketplace_categories`(
+					id, parent, name, description, image, image2, has_entries, sort_order, published
+				)
+				VALUES(
+					4, 0, 'Категория Container2', 'Эта Категория имеет подКатегории', '', '', 0, 4, 0
+				);
+         </query>
+         <query>
+			INSERT INTO `#__marketplace_categories`(
+					id, parent, name, description, image, image2, has_entries, sort_order, published
+				)
+				VALUES(
+					5, 4, 'Категория3', 'Description for Category3', 'default.gif', '', 1, 5, 0
+				);
+         </query>
+
+
+
+         <query>
+		DROP TABLE IF EXISTS `#__marketplace_ads`;
+         </query>
+         <query>
+		CREATE TABLE IF NOT EXISTS `#__marketplace_ads` (
+`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `category` int(10) unsigned DEFAULT '0',
+ `userid` int(10) unsigned DEFAULT NULL,
+ `user` varchar(25) DEFAULT NULL,
+ `name` varchar(50) DEFAULT NULL,
+ `surname` varchar(50) DEFAULT NULL,
+ `street` varchar(50) DEFAULT NULL,
+ `zip` varchar(10) DEFAULT NULL,
+ `city` varchar(50) DEFAULT NULL,
+ `state` varchar(50) DEFAULT NULL,
+ `country` varchar(50) DEFAULT NULL,
+ `phone1` varchar(50) DEFAULT NULL,
+ `phone2` varchar(50) DEFAULT NULL,
+ `email` varchar(50) DEFAULT NULL,
+ `web` varchar(80) DEFAULT NULL,
+ `ad_type` varchar(20) DEFAULT NULL,
+ `ad_headline` varchar(80) DEFAULT NULL,
+ `ad_text` text,
+ `ad_condition` varchar(20) DEFAULT NULL,
+ `ad_price` varchar(20) DEFAULT NULL,
+ `ad_image` tinyint(4) DEFAULT '0',
+ `date_created` date DEFAULT NULL,
+ `date_lastmodified` date DEFAULT NULL,
+ `views` int(10) unsigned DEFAULT '0',
+ `duration` int(10) unsigned DEFAULT '30',
+ `flag_featured` tinyint(1) DEFAULT '0',
+ `flag_top` tinyint(1) DEFAULT '0',
+ `flag_commercial` tinyint(1) DEFAULT '0',
+ `payment` tinyint(1) DEFAULT '0',
+ `published` tinyint(1) DEFAULT '1',
+ `sites` int(11) DEFAULT NULL,
+ `siten` varchar(40) DEFAULT NULL,
+ `siteid` int(11) DEFAULT '0',
+ PRIMARY KEY (`id`),
+ KEY `marketplace_ads_category` (`category`),
+ KEY `marketplace_ads_userid` (`userid`),
+ KEY `marketplace_ads_ad_type` (`ad_type`),
+ KEY `sites` (`sites`),
+ KEY `siten` (`siten`),
+ KEY `siteid` (`siteid`)
+) ENGINE=MyISAM AUTO_INCREMENT=12920 DEFAULT CHARSET=utf8
+         </query>
+
+         <query>
+		DROP TABLE IF EXISTS `#__marketplace_config`;
+         </query>
+         <query>
+            CREATE TABLE IF NOT EXISTS `#__marketplace_config` (
+                    `id` 				               	INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  				    `duration`                         	INTEGER UNSIGNED DEFAULT 30,
+			    	`date_deleted`                     	DATE DEFAULT '0000-00-00',
+  				    `ads_per_page`                     	INTEGER UNSIGNED NOT NULL DEFAULT 20,
+  				    `images_per_ad`                   	INTEGER UNSIGNED NOT NULL DEFAULT 3,
+  				    `image_columns`                   	INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  				    `max_image_size`                   	INTEGER UNSIGNED NOT NULL DEFAULT 102400,
+          			`show_recent5`                     	TINYINT(1) DEFAULT 1,
+          			`show_container`                   	TINYINT(1) DEFAULT 0,
+          			`ad_default`                       	TINYINT(1) DEFAULT 1,
+          			`ad_contact_registered_only`       	TINYINT(1) DEFAULT 0,
+          			`use_top`                      		TINYINT(1) DEFAULT 0,
+          			`use_featured`                      TINYINT(1) DEFAULT 0,
+          			`use_commercial`                    TINYINT(1) DEFAULT 0,
+          			`use_surname`                      	TINYINT(1) DEFAULT 0,
+          			`use_street`                       	TINYINT(1) DEFAULT 0,
+          			`use_zip`                          	TINYINT(1) DEFAULT 0,
+          			`use_city`                         	TINYINT(1) DEFAULT 0,
+          			`use_state`                        	TINYINT(1) DEFAULT 0,
+          			`use_country`                      	TINYINT(1) DEFAULT 0,
+					`use_web`                          	TINYINT(1) DEFAULT 0,
+          			`use_phone1`                       	TINYINT(1) DEFAULT 0,
+          			`use_phone2`                       	TINYINT(1) DEFAULT 0,
+          			`use_condition`                    	TINYINT(1) DEFAULT 0,
+          			`use_price`                        	TINYINT(1) DEFAULT 1,
+					`use_primezilla`                   	TINYINT(1) DEFAULT 0,
+					`use_primezillaforcontact`         	TINYINT(1) DEFAULT 0,
+					`company`                 		   	VARCHAR(100) DEFAULT NULL,
+					`company_url`                 	   	VARCHAR(100) DEFAULT NULL,
+					`author`              			   	VARCHAR(100) DEFAULT NULL,
+					`extension`                 	   	VARCHAR(100) DEFAULT NULL,
+					`version`                 		   	VARCHAR(100) DEFAULT NULL,
+          			`rss_syndication`                  	TINYINT(1) DEFAULT 0,
+  				    `rss_count`                        	INTEGER UNSIGNED DEFAULT 20,
+					`email_from`                       	VARCHAR(100) DEFAULT NULL,
+					`email_from_name`                  	VARCHAR(100) DEFAULT NULL,
+					`use_admin_email_notification`     	TINYINT(1) DEFAULT 0,
+					`use_moderator_email_notification` 	TINYINT(1) DEFAULT 0,
+					`notification_email_subject`       	VARCHAR(100) DEFAULT NULL,
+					`notification_email_text`          	TEXT,
+                    `use_author_email_notification`    	TINYINT(1) DEFAULT 0,
+                    `expiry_email_subject`             	VARCHAR(100),
+                    `expiry_email_text`                	TEXT,
+                    `use_slimbox`    					TINYINT(1) DEFAULT 0,
+                    `include_mootools`    				TINYINT(1) DEFAULT 0,
+                    `include_slimbox`    				TINYINT(1) DEFAULT 0,
+                    `use_paid_ads`    					TINYINT(1) DEFAULT 0,
+                    `paid_ads_currency`    				VARCHAR(20) DEFAULT 'EUR',
+                    `paid_ads_price_basic`    			FLOAT( 9,2) DEFAULT 0,
+                    `paid_ads_price_top`    			FLOAT( 9,2) DEFAULT 0,
+                    `paid_ads_price_featured`    		FLOAT( 9,2) DEFAULT 0,
+                    `paid_ads_price_commercial`    		FLOAT( 9,2) DEFAULT 0,
+                    `use_offline_payment`    			TINYINT(1) DEFAULT 0,
+                    `offline_payment_text`    			TEXT,
+                    `use_paypal_payment`    			TINYINT(1) DEFAULT 0,
+                    `use_paypal_testmode`    			TINYINT(1) DEFAULT 0,
+                    `paypal_businessid`    				VARCHAR(100) DEFAULT 'YOURPAYPALID@YOURDOMAIN',
+
+          		  PRIMARY KEY  (`id`)
+		) TYPE=MYISAM;
+         </query>
+		<query>
+			INSERT INTO `#__marketplace_config`(
+					id,
+					duration,
+					date_deleted,
+					ads_per_page,
+					max_image_size,
+					show_recent5,
+					show_container,
+          		    ad_default,
+          		    ad_contact_registered_only,
+          		    use_surname,
+          		    use_street,
+          		    use_zip,
+          		    use_city,
+          		    use_state,
+          		    use_country,
+          		    use_web,
+          		    use_phone1,
+          		    use_phone2,
+          		    use_condition,
+          		    use_price,
+          		    use_primezilla,
+          		    use_primezillaforcontact,
+				    company,
+				    company_url,
+				    author,
+				    extension,
+			        version,
+			        email_from,
+			        email_from_name,
+			        notification_email_subject,
+			        notification_email_text,
+			        expiry_email_subject,
+			        expiry_email_text,
+                    use_slimbox,
+                    include_mootools,
+                    include_slimbox,
+			        offline_payment_text
+				)
+				VALUES(
+					1,
+					30,
+					'0000-00-00',
+					20,
+					102400,
+					1,
+					0,
+					1,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					0,
+					1,
+					0,
+					0,
+					'Codingfish Limited',
+					'codingfish.c0m',
+					'Achim Fischer',
+					'Marketplace',
+					'1.4.6',
+					'noreply@localhost',
+					'Marketplace',
+					'Marketplace Notificaton',
+					'Dear Admin/Moderator,\n\na new ad has been placed in your Marketplace\n\n[LINK_TO_AD]\n\nBest regards\n\nYour Marketplace Team',
+					'Your ad has expired',
+					'Dear [USERNAME],\n\nyour ad in our marketplace has expired.\n\nPlease feel free to come back and place another ad in our marketplace.\n\nBest regards\n\nYour Marketplace Team',
+					0,
+					0,
+					0,
+					'\n\nYOUR BANK ACCOUNT DATA HERE\n\n'
+					);
+		</query>
+
+         <query>
+		DROP TABLE IF EXISTS `#__marketplace_types`;
+         </query>
+         <query>
+		CREATE TABLE IF NOT EXISTS `#__marketplace_types` (
+		  		`id`               INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+		  		`name`             VARCHAR(80) DEFAULT NULL,
+		  		`sort_order`       INTEGER DEFAULT '0',
+          		`published`        TINYINT(1) DEFAULT 0,
+		  PRIMARY KEY  (`id`),
+		  KEY `marketplace_types_name` (`name`),
+		  KEY `marketplace_types_sort_order` (`sort_order`)
+		) TYPE=MyISAM;
+         </query>
+		<query>
+			INSERT INTO `#__marketplace_types`( id, name, sort_order, published)
+				            VALUES ( 1, 'Продам', 1, 1 );
+		</query>
+		<query>
+			INSERT INTO `#__marketplace_types`( id, name, sort_order, published)
+				            VALUES ( 2, 'Куплю', 2, 1 );
+		</query>
+		<query>
+			INSERT INTO `#__marketplace_types`( id, name, sort_order, published)
+				            VALUES ( 3, 'Обменяю', 3, 1 );
+		</query>
+
+         <query>
+		      DROP TABLE IF EXISTS `#__marketplace_users`;
+         </query>
+         <query>
+		      CREATE TABLE IF NOT EXISTS `#__marketplace_users` (
+		  		`id`                INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+		  		`userid`            INTEGER UNSIGNED NOT NULL,
+          		`isBlocked`			TINYINT(1) DEFAULT 0,
+          		`isAdmin`		    TINYINT(1) DEFAULT 0,
+          		`isModerator`		TINYINT(1) DEFAULT 0,
+          		`categories`		VARCHAR(200) DEFAULT '',
+          		`flag_top`		    TINYINT(1) DEFAULT 0,
+          		`flag_featured`     TINYINT(1) DEFAULT 0,
+          		`flag_commercial`   TINYINT(1) DEFAULT 0,
+		  		`date_begin`        DATE DEFAULT NULL,
+		  		`date_end`        	DATE DEFAULT NULL,
+          		`published`			TINYINT(1) DEFAULT 0,
+
+		        PRIMARY KEY  (`id`),
+		          KEY `marketplace_users_userid` (`userid`),
+		          KEY `marketplace_users_isBlocked` (`isBlocked`),
+		          KEY `marketplace_users_isAdmin` (`isAdmin`),
+		          KEY `marketplace_users_isModerator` (`isModerator`),
+		          KEY `marketplace_users_date_begin` (`date_begin`),
+		          KEY `marketplace_users_date_end` (`date_end`)
+		      ) TYPE=MyISAM;
+         </query>
+
+         <query>
+		      DROP TABLE IF EXISTS `#__marketplace_keywords`;
+         </query>
+         <query>
+		      CREATE TABLE IF NOT EXISTS `#__marketplace_keywords` (
+		  		`id`               INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+		  		`keyword`          VARCHAR(100) DEFAULT NULL,
+		  		`action`           INTEGER DEFAULT '0',
+		  		`infotext`         VARCHAR(200) DEFAULT '',
+          		`published`        TINYINT(1) DEFAULT 0,
+		      PRIMARY KEY  (`id`),
+		      KEY `marketplace_keywords_keyword` (`keyword`)
+		) TYPE=MyISAM;
+         </query>
+
+         <query>
+			DROP TABLE IF EXISTS `#__marketplace_log_paypal`;
+         </query>
+         <query>
+			CREATE TABLE IF NOT EXISTS `#__marketplace_log_paypal` (
+		  		`id`               	INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+		  		`item_number`      	INTEGER UNSIGNED NOT NULL,
+		  		`item_name`        	VARCHAR(100) 	DEFAULT NULL,
+		  		`payment_status`   	VARCHAR(100) 	DEFAULT NULL,
+		  		`payment_amount`   	VARCHAR(100) 	DEFAULT NULL,
+		  		`payment_currency` 	VARCHAR(10) 	DEFAULT NULL,
+		  		`txn_id` 			VARCHAR(100) 	DEFAULT NULL,
+		  		`receiver_email` 	VARCHAR(100) 	DEFAULT NULL,
+		  		`payer_email` 		VARCHAR(100) 	DEFAULT NULL,
+		  		`date_created`      DATE DEFAULT 	NULL,
+		  		`time_created`      TIME DEFAULT 	NULL,
+
+		  	PRIMARY KEY  (`id`),
+		  	KEY `marketplace_log_paypal_item_number` (`item_number`),
+		  	KEY `marketplace_log_paypal_payment_status` (`payment_status`),
+		  	KEY `marketplace_log_paypal_payment_currency` (`payment_currency`),
+		  	KEY `marketplace_log_paypal_date_created` (`date_created`),
+		  	KEY `marketplace_log_paypal_time_created` (`time_created`)
+			) TYPE=MyISAM;
+         </query>
+		<query>
+		DROP TABLE IF EXISTS `#__marketplace_subdomens`;
+         </query>
+         <query>
+		CREATE TABLE IF NOT EXISTS `#__marketplace_subdomens` (
+		`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+ `name` varchar(80) DEFAULT NULL,
+ `description` varchar(80) DEFAULT NULL,
+ `lastid` int(11) DEFAULT '0',
+ `numrow` int(11) DEFAULT '0',
+ `basedriver` varchar(30) NOT NULL DEFAULT 'mysql',
+ `hostbase` varchar(50) NOT NULL DEFAULT 'localhost',
+ `basename` varchar(50) DEFAULT NULL,
+ `userbase` varchar(50) DEFAULT NULL,
+ `passwordbase` varchar(50) DEFAULT NULL,
+ `prefixbase` varchar(20) DEFAULT NULL,
+ `sort_order` int(11) DEFAULT '0',
+ `published` tinyint(1) DEFAULT '0',
+ PRIMARY KEY (`id`),
+ KEY `marketplace_types_subdomens` (`name`),
+ KEY `marketplace_types_sort_order` (`sort_order`),
+ KEY `basename` (`basename`),
+ KEY `userbase` (`userbase`),
+ KEY `prefixdb` (`prefixbase`),
+ KEY `hostbase` (`hostbase`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8
+		</query>
+      </queries>
+   </install>
+
+
+
+  <uninstall>
+    <queries>
+      <query>DELETE FROM `#__marketplace_categories`</query>
+      <query>DROP TABLE `#__marketplace_categories`</query>
+      <query>DELETE FROM `#__marketplace_ads`</query>
+      <query>DROP TABLE `#__marketplace_ads`</query>
+      <query>DELETE FROM `#__marketplace_config`</query>
+      <query>DROP TABLE `#__marketplace_config`</query>
+      <query>DELETE FROM `#__marketplace_types`</query>
+      <query>DROP TABLE `#__marketplace_types`</query>
+      <query>DELETE FROM `#__marketplace_users`</query>
+      <query>DROP TABLE `#__marketplace_users`</query>
+      <query>DELETE FROM `#__marketplace_keywords`</query>
+      <query>DROP TABLE `#__marketplace_keywords`</query>
+      <query>DELETE FROM `#__marketplace_log_paypal`</query>
+      <query>DROP TABLE `#__marketplace_log_paypal`</query>
+    </queries>
+  </uninstall>
+
+
+   <installfile>install.marketplace.php</installfile>
+
+   <uninstallfile>uninstall.marketplace.php</uninstallfile>
+
+
+   <administration>
+      <menu>Marketplace</menu>
+            <submenu>
+      			<menu act="configuration">Конфигурация</menu>
+      			<menu act="types">Типы</menu>
+      			<menu act="categories">Категории</menu>
+      			<menu act="ads">Объявления</menu>
+      			<menu act="users">Пользователи</menu>
+      			<menu act="keywords">Ключевые слова</menu>
+				<menu act="subdomens">Поддомены</menu>
+      			<menu act="about">О MarketPlace</menu>
+		    </submenu>
+			<files>
+				<filename>admin.marketplace.php</filename>
+				<filename>admin.marketplace.html.php</filename>
+				<filename>marketplace.class.php</filename>
+				<filename>toolbar.marketplace.php</filename>
+				<filename>toolbar.marketplace.html.php</filename>
+				<filename>LICENSE.txt</filename>
+			</files>
+   </administration>
+
+
+</mosinstall>

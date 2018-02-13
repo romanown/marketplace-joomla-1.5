@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<joomfish type="contentelement">
+	<name>Marketplace Ads</name>
+	<author>Achim Fischer</author>
+	<version>1.4.2</version>
+	<description>Marketplace Ads</description>
+	<reference>
+		<table name="marketplace_ads">
+			<field type="referenceid" name="id" translate="0">Id</field>
+			<field type="titletext" name="ad_headline" translate="1">Headline</field>
+			<field type="textarea" name="ad_text" translate="1">Text</field>
+		</table>
+	</reference>
+</joomfish>
