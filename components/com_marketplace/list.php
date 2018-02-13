@@ -69,7 +69,7 @@ else {
 	$search_condition	= strval( JRequest::getVar( 'ad_condition', '' ) );
 }
 
-
+$siteurl='supersite.org';
 
 // get marketplace user data
 $dateToday = date("Y-m-d");
@@ -376,13 +376,13 @@ include($mosConfig_absolute_path.'/components/com_marketplace/topmenu.php');
 // echo "id ".$row->id;
 		if ( $row->siteid > 1) {$row->id = $row->siteid ;}
   if ( strlen($row->siten) > 0) {
-	  if ($row->siten <> 'reklama-31')
+	  if ($row->siten <> $siteurl)
 	  {
 	  $row->siten = $row->siten.".";}
 	  else {$row->siten = '';}
 	 }
 //	 echo $row->siten".";
-        $linkTarget = sefRelToAbs( "http://".$row->siten."reklama-31.ru/index.php?option=com_marketplace&amp;page=show_ad&amp;catid=".$row->category."&amp;adid=".$row->id."&amp;Itemid=".$Itemid);
+        $linkTarget = sefRelToAbs( "http://".$row->siten.$siteurl."/index.php?option=com_marketplace&amp;page=show_ad&amp;catid=".$row->category."&amp;adid=".$row->id."&amp;Itemid=".$Itemid);
 
         echo "<tr>";
 
@@ -424,22 +424,22 @@ include($mosConfig_absolute_path.'/components/com_marketplace/topmenu.php');
 
         if ( $row->ad_image > 0) {
  		if ( $row->siteid > 1) {
-            $a_pic_jpg = "http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."a.jpg";
+            $a_pic_jpg = "http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."a.jpg";
             $a_pic_png = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."a.png";
             $a_pic_gif = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."a.gif";
 
-            $b_pic_jpg = "http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."b.jpg";
+            $b_pic_jpg = "http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."b.jpg";
             $b_pic_png = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."b.png";
             $b_pic_gif = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."b.gif";
 
-            $c_pic_jpg = "http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."c.jpg";
+            $c_pic_jpg = "http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."c.jpg";
             $c_pic_png = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."c.png";
             $c_pic_gif = $mosConfig_absolute_path."/components/com_marketplace/images/entries/".$row->id."c.gif";
 //  echo "id ".$row->id." siteid ".$row->siteid." pic ".$a_pic_jpg;
             $boolPicFound = 0;
 
             if ( @fopen($a_pic_jpg, "r")) {
-                echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."a.jpg"."' width='300' height='250'  align='center' border='0'></a>";
+                echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."a.jpg"."' width='300' height='250'  align='center' border='0'></a>";
                 $boolPicFound = 1;
             }
             else {
@@ -458,7 +458,7 @@ include($mosConfig_absolute_path.'/components/com_marketplace/topmenu.php');
 
             if ( $boolPicFound == 0) {
                if ( @fopen($a_pic_jpg, "r")) {
-                    echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."b.jpg"."' width='300' height='250' align='center' border='0'></a>";
+                    echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."b.jpg"."' width='300' height='250' align='center' border='0'></a>";
                     $boolPicFound = 1;
                 }
                 else {
@@ -478,7 +478,7 @@ include($mosConfig_absolute_path.'/components/com_marketplace/topmenu.php');
 
             if ( $boolPicFound == 0) {
                if ( @fopen($a_pic_jpg, "r")) {
-                    echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten."reklama-31.ru/components/com_marketplace/images/entries/".$row->id."c.jpg"."' width='300' height='250' align='center' border='0'></a>";
+                    echo "<a href='".$linkTarget."' target=_blank><img src='"."http://".$row->siten.$siteurl."/components/com_marketplace/images/entries/".$row->id."c.jpg"."' width='300' height='250' align='center' border='0'></a>";
                 }
                 else {
                     if ( file_exists( $c_pic_png)) {
